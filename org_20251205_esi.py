@@ -97,9 +97,23 @@ def init_org(b):
     @param b: webdriver
     @return: bool
     @author:lzt
-    @time: 2025/12/5
+    @time: 2025/12/9
     """
     try:
+        # select type:ios
+        cmds = [
+            # 点击“研究方向”
+            r"document.evaluate('/html/body/app-root/main/ic-analysis/div/div[2]/div[1]/ic-analysis-sidebar/div/aside/cl-tab-nav/div/cl-tab-pane[1]/div/ic-sidebar-filters/div[1]/div[3]/ul/li[15]/button/span', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue?.click();",
+            # 点击“学科分类体系”下拉搜索
+            r"document.evaluate('/html/body/app-root/main/ic-analysis/div/div[2]/div[1]/ic-analysis-sidebar/div/aside/cl-tab-nav/div/cl-tab-pane[1]/div/ic-sidebar-filters/div[2]/ic-sidebar-filter/div/div[3]/cl-analysis-filter[1]/div/cl-select-filter/div/fieldset/div/span/nav/ul/li/a', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue?.click();",
+            # 点击“esi”选项
+            r"document.evaluate('/html/body/app-root/main/ic-analysis/div/div[2]/div[1]/ic-analysis-sidebar/div/aside/cl-tab-nav/div/cl-tab-pane[1]/div/ic-sidebar-filters/div[2]/ic-sidebar-filter/div/div[3]/cl-analysis-filter[1]/div/cl-select-filter/div/fieldset/div/span/nav/ul/li/ul/li[3]/label', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue?.click();",
+            # 点击确认
+            r"document.evaluate('/html/body/app-root/main/ic-analysis/div/div[2]/div[1]/ic-analysis-sidebar/div/aside/cl-tab-nav/div/cl-tab-pane[1]/div/ic-sidebar-filters/div[2]/ic-sidebar-filter/div/div[4]/div[1]/button[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue?.click();",
+        ]
+        for i in cmds:
+            b.execute_script(i)
+        time.sleep(3)
         cmds = [
             # cookie
             # r"document.querySelector('#onetrust-accept-btn-handler').click();",
@@ -232,7 +246,7 @@ def download(b, name):
     # Close download window
     e = WebDriverWait(b, TIMEOUT).until(lambda x: x.find_element(By.XPATH,
                                                                  r'/html/body/app-root/main/ic-analysis/div/div[2]/div[2]/cl-tab-nav/div/cl-tab-pane[1]/div/ic-analysis-table/ic-row-details-modal/cl-overlay-modal/cl-overlay-modal-content/div/div/div[1]/button'))
-    e.click()
+    # e.click()
     # Refresh
     b.refresh()
     # Close tag
